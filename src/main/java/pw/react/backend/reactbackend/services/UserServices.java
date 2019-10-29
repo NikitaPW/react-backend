@@ -19,7 +19,6 @@ public class UserServices {
         else
             return true;
     }
-    public void save(User user) { repository.save(user); }
     public List<User> findAll() {
         return repository.findAll();
     }

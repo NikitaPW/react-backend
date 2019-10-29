@@ -9,7 +9,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int Id;
+    private Long Id;
 
     @Column(name = "login", nullable = false)
     private String login;
@@ -41,11 +41,11 @@ public class User {
                 this.getDateOfBirth()+ ", " + this.active();
         return info;
     }
-    public int getId() {
+    public Long getId() {
         return Id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.Id = id;
     }
 
@@ -85,7 +85,15 @@ public class User {
         return active;
     }
 
-    public void setIsActive(boolean active) {
+    public void setActive(Boolean active) {
         this.active = active;
+    }
+
+    public void setFields(String login, String firstName, String lastName, Date dateOfBirth, Boolean active) {
+        setLogin(login);
+        setFirstName(firstName);
+        setLastName(lastName);
+        setDateOfBirth(dateOfBirth);
+        setActive(active);
     }
 }
