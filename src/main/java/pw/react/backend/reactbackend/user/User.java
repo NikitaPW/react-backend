@@ -1,7 +1,10 @@
 package pw.react.backend.reactbackend.user;
-
 import javax.persistence.*;
-import java.sql.Date;
+import java.time.LocalDate;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import pw.backend.lab.backlab.utils.JsonDateDeserializer;
+import pw.backend.lab.backlab.utils.JsonDateSerializer;
 
 @Entity
 @Table(name="Users")
@@ -9,7 +12,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long Id;
+    private long Id;
 
     @Column(name = "login", nullable = false)
     private String login;
@@ -21,14 +24,16 @@ public class User {
     private String lastName;
 
     @Column(name = "dateOfBirth")
-    private Date dateOfBirth;
+    @JsonDeserialize(using = JsonDateDeserializer.class)
+    @JsonSerialize(using = JsonDateSerializer.class)
+    private LocalDate dateOfBirth;
 
     @Column(name = "active", nullable = false)
     private Boolean active;
 
     public User(){}
 
-    public User(String login, String first_name, String last_name,Date birth, Boolean active) {
+    public User(String login, String first_name, String last_name,LocalDate birth, Boolean active) {
         this.login = login;
         this.firstName = first_name;
         this.lastName = last_name;
@@ -41,11 +46,11 @@ public class User {
                 this.getDateOfBirth()+ ", " + this.active();
         return info;
     }
-    public Long getId() {
+    public long getId() {
         return Id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.Id = id;
     }
 
@@ -73,11 +78,11 @@ public class User {
         this.lastName = lastName;
     }
 
-    public Date getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
@@ -89,7 +94,7 @@ public class User {
         this.active = active;
     }
 
-    public void setFields(String login, String firstName, String lastName, Date dateOfBirth, Boolean active) {
+    public void setFields(String login, String firstName, String lastName, LocalDate dateOfBirth, Boolean active) {
         setLogin(login);
         setFirstName(firstName);
         setLastName(lastName);
